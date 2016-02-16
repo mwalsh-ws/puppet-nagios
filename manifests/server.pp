@@ -245,109 +245,109 @@ class nagios::server (
   # Realize all nagios related exported resources for this server
   # Automatically reload nagios for relevant configuration changes
   # Require the package for the parent directory to exist initially
-  Nagios_command <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_contact <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_contactgroup <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_host <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_hostdependency <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_hostgroup <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_service <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_servicedependency <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_servicegroup <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_timeperiod <<| tag == "nagios-${nagios_server}" |>> {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
+  # Nagios_command <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_contact <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_contactgroup <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_host <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_hostdependency <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_hostgroup <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_service <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_servicedependency <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_servicegroup <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_timeperiod <<| tag == "nagios-${nagios_server}" |>> {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
 
-  # Auto reload and parent dir, but for non-exported resources
-  # FIXME: This does not work from outside here, wrong scope.
-  # We'll need to wrap around these types with our own
-  # definitions like for "host"
-  Nagios_command {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_contact {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_contactgroup {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_host {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_hostdependency {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_hostgroup {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_service {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_servicegroup {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  Nagios_timeperiod {
-    notify  => Service['nagios'],
-    require => Package['nagios'],
-  }
-  # Package['nagios'] ->
-  # Nagios_command <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_contact <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_contactgroup <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_host <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_hostdependency <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_hostgroup <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_service <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_servicedependency <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_servicegroup <<| tag == "nagios-${nagios_server}" |>> ->
-  # Nagios_timeperiod <<| tag == "nagios-${nagios_server}" |>> ->
-  # Service['nagios']
+  # # Auto reload and parent dir, but for non-exported resources
+  # # FIXME: This does not work from outside here, wrong scope.
+  # # We'll need to wrap around these types with our own
+  # # definitions like for "host"
+  # Nagios_command {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_contact {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_contactgroup {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_host {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_hostdependency {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_hostgroup {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_service {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_servicegroup {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  # Nagios_timeperiod {
+  #   notify  => Service['nagios'],
+  #   require => Package['nagios'],
+  # }
+  Package['nagios'] ->
+  Nagios_command <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_contact <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_contactgroup <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_host <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_hostdependency <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_hostgroup <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_service <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_servicedependency <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_servicegroup <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_timeperiod <<| tag == "nagios-${nagios_server}" |>> ->
+  Service['nagios']
 
-  # Package['nagios'] -> Nagios_command <| |> ~> Service['nagios']
-  # Package['nagios'] -> Nagios_contact <| |> ~> Service['nagios']
-  # Package['nagios'] -> Nagios_contactgroup <| |> ~> Service['nagios']
-  # Package['nagios'] -> Nagios_host <| |> ~> Service['nagios']
-  # Package['nagios'] -> Nagios_hostdependency <| |> ~> Service['nagios']
-  # Package['nagios'] -> Nagios_hostgroup <| |> ~> Service['nagios']
-  # Package['nagios'] -> Nagios_service <| |> ~> Service['nagios']
-  # Package['nagios'] -> Nagios_servicegroup <| |> ~> Service['nagios']
-  # Package['nagios'] -> Nagios_timeperiod <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_command <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_contact <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_contactgroup <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_host <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_hostdependency <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_hostgroup <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_service <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_servicegroup <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_timeperiod <| |> ~> Service['nagios']
 
   # Works great, but only if the "target" is the default (known limitation)
   resources { [
