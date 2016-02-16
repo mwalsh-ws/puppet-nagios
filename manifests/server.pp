@@ -326,29 +326,28 @@ class nagios::server (
   #   notify  => Service['nagios'],
   #   require => Package['nagios'],
   # }
-  Nagios_command <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_contact <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_contactgroup <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_host <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_hostdependency <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_hostgroup <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_service <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_servicedependency <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_servicegroup <<| tag == "nagios-${nagios_server}" |>>
-  Nagios_timeperiod <<| tag == "nagios-${nagios_server}" |>>
-
   Package['nagios'] ->
-  Nagios_command <| |> ~>
-  Nagios_contact <| |> ~>
-  Nagios_contactgroup <| |> ~>
-  Nagios_host <| |> ~>
-  Nagios_hostdependency <| |> ~>
-  Nagios_hostgroup <| |> ~>
-  Nagios_service <| |> ~>
-  Nagios_servicegroup <| |> ~>
-  Nagios_timeperiod <| |> ~>
+  Nagios_command <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_contact <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_contactgroup <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_host <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_hostdependency <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_hostgroup <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_service <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_servicedependency <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_servicegroup <<| tag == "nagios-${nagios_server}" |>> ->
+  Nagios_timeperiod <<| tag == "nagios-${nagios_server}" |>> ->
   Service['nagios']
 
+  Nagios_command <| |> ~> Service['nagios']
+  Nagios_contact <| |> ~> Service['nagios']
+  Nagios_contactgroup <| |> ~> Service['nagios']
+  Nagios_host <| |> ~> Service['nagios']
+  Nagios_hostdependency <| |> ~> Service['nagios']
+  Nagios_hostgroup <| |> ~> Service['nagios']
+  Nagios_service <| |> ~> Service['nagios']
+  Nagios_servicegroup <| |> ~> Service['nagios']
+  Nagios_timeperiod <| |> ~> Service['nagios']
 
   # Works great, but only if the "target" is the default (known limitation)
   resources { [
