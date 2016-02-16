@@ -339,15 +339,15 @@ class nagios::server (
   Nagios_timeperiod <<| tag == "nagios-${nagios_server}" |>> ->
   Service['nagios']
 
-  Nagios_command <| |> ~> Service['nagios']
-  Nagios_contact <| |> ~> Service['nagios']
-  Nagios_contactgroup <| |> ~> Service['nagios']
-  Nagios_host <| |> ~> Service['nagios']
-  Nagios_hostdependency <| |> ~> Service['nagios']
-  Nagios_hostgroup <| |> ~> Service['nagios']
-  Nagios_service <| |> ~> Service['nagios']
-  Nagios_servicegroup <| |> ~> Service['nagios']
-  Nagios_timeperiod <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_command <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_contact <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_contactgroup <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_host <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_hostdependency <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_hostgroup <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_service <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_servicegroup <| |> ~> Service['nagios']
+  Package['nagios'] -> Nagios_timeperiod <| |> ~> Service['nagios']
 
   # Works great, but only if the "target" is the default (known limitation)
   resources { [
