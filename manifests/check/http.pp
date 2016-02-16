@@ -10,9 +10,12 @@ define nagios::check::http (
   $use                      = $::nagios::client::service_use,
 ) {
 
-  if $ensure != 'absent' {
-    Package <| tag == 'nagios-plugins-http' |>
+  $pkgensure = $ensure ? {
+    'absent'   => 'absent',
+    default => 'installed',
   }
+
+  package { 'nagios-plugins-http': ensure => $pkgensure }
 
   nagios::client::nrpe_file { "check_http_${title}":
     ensure => $ensure,

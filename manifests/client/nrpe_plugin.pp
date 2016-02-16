@@ -18,9 +18,14 @@ define nagios::client::nrpe_plugin (
     }
   }
 
-  # Nagios perl library required by checks written in perl
-  if $perl == true and $ensure != 'absent' {
-    Package <| tag == 'nagios-plugins-perl' |>
+  if $perl == true {
+    $pkgensure = $ensure ? {
+      'absent' => 'absent',
+      default  => 'installed',
+    }
+
+    # Nagios perl library required by checks written in perl
+    package { 'nagios-plugins-perl': ensure => $pkgensure }
   }
 
   # System package(s) required by checks relying on 3rd party tools

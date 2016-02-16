@@ -40,20 +40,21 @@ class nagios::check::mysql_health (
     Nagios_service { notification_period => $::nagios_check_mysql_health_notification_period }
   }
 
+  $pkgensure = $ensure ? {
+    'absent' => 'absent',
+    default  => 'installed',
+  }
+
   # Optional package containing the script
   if $pkg {
     $pkgname = $::operatingsystem ? {
       'Gentoo' => 'net-analyzer/nagios-check_mysql_health',
       default  => 'nagios-plugins-mysql_health',
     }
-    $pkgensure = $ensure ? {
-      'absent' => 'absent',
-      default  => 'installed',
-    }
     package { $pkgname: ensure => $pkgensure }
   }
 
-  Package <| tag == 'nagios-plugins-perl' |>
+  package { 'nagios-plugins-perl': ensure => $pkgensure }
 
   nagios::check::mysql_health::mode { [
     'connection-time',

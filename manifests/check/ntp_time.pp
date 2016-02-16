@@ -11,9 +11,12 @@ class nagios::check::ntp_time (
   $use                      = $::nagios::client::service_use,
 ) inherits ::nagios::client {
 
-  if $ensure != 'absent' {
-    Package <| tag == 'nagios-plugins-ntp' |>
+  $pkgensure = $ensure ? {
+    'absent' => 'absent',
+    default  => 'installed',
   }
+
+  package { 'nagios-plugins-ntp': }
 
   # Include defaults if no overrides in $args
   if $args !~ /-H/ { $arg_h = '-H 0.pool.ntp.org ' } else { $arg_h = '' }

@@ -11,9 +11,12 @@ class nagios::check::swap (
   $use                      = $::nagios::client::service_use,
 ) inherits ::nagios::client {
 
-  if $ensure != 'absent' {
-    Package <| tag == 'nagios-plugins-swap' |>
+  $pkgensure = $ensure ? {
+    'absent' => 'absent',
+    default  => 'installed',
   }
+
+  package { 'nagios-plugins-swap': ensure => $pkgensure }
 
   # Include default arguments if no overrides in $args
   if $args !~ /-w/ { $arg_w = '-w 5% ' } else { $arg_w = '' }

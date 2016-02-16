@@ -19,30 +19,6 @@ class nagios::params {
   $nrpe_command   = '$USER1$/check_nrpe -H $HOSTADDRESS$'
   $nrpe_options   = '-t 15'
 
-  # Optional plugin packages, to be realized by tag where needed
-  # Note: We use tag, because we can't use alias for 2 reasons :
-  # * http://projects.puppetlabs.com/issues/4459
-  # * The value of $alias can't be the same as $name
-  $nagios_plugins_packages = [
-    'nagios-plugins-disk',
-    'nagios-plugins-file_age',
-    'nagios-plugins-http',
-    'nagios-plugins-ide_smart',
-    'nagios-plugins-ifstatus',
-    'nagios-plugins-linux_raid',
-    'nagios-plugins-load',
-    'nagios-plugins-log',
-    'nagios-plugins-mailq',
-    'nagios-plugins-mysql',
-    'nagios-plugins-ntp',
-    'nagios-plugins-perl',
-    'nagios-plugins-pgsql',
-    'nagios-plugins-procs',
-    'nagios-plugins-sensors',
-    'nagios-plugins-swap',
-    'nagios-plugins-users',
-  ]
-
   case $::operatingsystem {
     'RedHat', 'Fedora', 'CentOS', 'Scientific', 'Amazon': {
       $nrpe_package       = [ 'nrpe', 'nagios-plugins' ]
@@ -59,10 +35,6 @@ class nagios::params {
       $pid_file           = hiera('nagios::params::pid_file','/var/run/nagios/nagios.pid')
       $megaclibin         = '/usr/sbin/MegaCli'
       $perl_memcached     = 'perl-Cache-Memcached'
-      @package { $nagios_plugins_packages:
-        ensure => installed,
-        tag    => $name,
-      }
     }
     'Gentoo': {
       $nrpe_package       = [ 'net-analyzer/nrpe' ]
@@ -77,9 +49,8 @@ class nagios::params {
       $megaclibin         = '/opt/bin/MegaCli'
       $perl_memcached     = 'dev-perl/Cache-Memcached'
       # No package splitting in Gentoo
-      @package { 'net-analyzer/nagios-plugins':
+      package { 'net-analyzer/nagios-plugins':
         ensure => installed,
-        tag    => $nagios_plugins_packages,
       }
     }
     'Debian', 'Ubuntu': {
@@ -95,9 +66,8 @@ class nagios::params {
       $megaclibin         = '/opt/bin/MegaCli'
       $perl_memcached     = 'libcache-memcached-perl'
       # No package splitting in Debian
-      @package { 'nagios-plugins':
+      package { 'nagios-plugins':
         ensure => installed,
-        tag    => $nagios_plugins_packages,
       }
     }
     default: {
@@ -111,10 +81,6 @@ class nagios::params {
       $pid_file           = hiera('nagios::params::pid_file','/var/run/nagios.pid')
       $megaclibin         = hiera('nagios::params::megaclibin','/usr/sbin/MegaCli')
       $perl_memcached     = hiera('nagios::params::perl_memcached','perl-Cache-Memcached')
-      @package { $nagios_plugins_packages:
-        ensure => installed,
-        tag    => $name,
-      }
     }
   }
 

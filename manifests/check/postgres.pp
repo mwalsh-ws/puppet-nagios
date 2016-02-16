@@ -82,17 +82,17 @@ class nagios::check::postgres (
     content => template('nagios/plugins/check_postgres-sudoers.erb'),
   }
 
-  # Optional package containing the script
-  if $pkg {
-    $pkgname = 'nagios-plugins-postgres'
-    $pkgensure = $ensure ? {
-      'absent' => 'absent',
-      default  => 'installed',
-    }
-    package { $pkgname: ensure => $pkgensure }
+  $pkgensure = $ensure ? {
+    'absent' => 'absent',
+    default  => 'installed',
   }
 
-  Package <| tag == 'nagios-plugins-perl' |>
+  # Optional package containing the script
+  if $pkg {
+    package { 'nagios-pligins-postgres': ensure => $pkgensure }
+  }
+
+  package { 'nagios-plugins-perl': ensure => $pkgensure }
 
   # Modes-specific definition
   nagios::check::postgres::mode { [

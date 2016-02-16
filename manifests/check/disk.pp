@@ -16,9 +16,12 @@ class nagios::check::disk (
   $use                      = $::nagios::client::service_use,
 ) inherits ::nagios::client {
 
-  if $ensure != 'absent' {
-    Package <| tag == 'nagios-plugins-disk' |>
+  $pkgensure = $ensure ? {
+    'absent' => 'absent',
+    default  => 'installed',
   }
+
+  package { 'nagios-plugins-disk': ensure => $pkgensure }
 
   # Include defaults if no overrides in $args
   if $args !~ /-w/ { $arg_w = '-w 5% ' } else { $arg_w = '' }

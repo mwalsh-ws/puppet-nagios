@@ -11,9 +11,12 @@ class nagios::check::load (
   $use                      = $::nagios::client::service_use,
 ) inherits ::nagios::client {
 
-  if $ensure != 'absent' {
-    Package <| tag == 'nagios-plugins-load' |>
+  $package_ensure = $ensure ? {
+    undef   => 'present',
+    default => $ensure,
   }
+
+  package { 'nagios-plugins-load': ensure => $package_ensure }
 
   # We choose defaults based on the number of CPUs (cores)
   if $args == '' {
