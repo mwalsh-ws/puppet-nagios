@@ -89,7 +89,7 @@ class nagios::check::postgres (
 
   # Optional package containing the script
   if $pkg {
-    package { 'nagios-pligins-postgres': ensure => $pkgensure }
+    package { 'nagios-plugins-postgres': ensure => $pkgensure }
   }
 
   package { 'nagios-plugins-perl': ensure => $pkgensure }
