@@ -14,6 +14,8 @@ define nagios::check (
   $max_check_attempts  = hiera("nagios::check::${title}::max_check_attempts",undef),
   $notification_period = hiera("nagios::check::${title}::notification_period",undef),
   $use                 = hiera("nagios::check::${title}::use",undef),
+  $packages            = hiera("nagios::check::${title}::packages", []),
+  $packages_ensure     = hiera("nagios::check::${title}::packages_ensure", undef),
 ) {
 
   # We need to take default values from the nagios::client config
@@ -22,6 +24,14 @@ define nagios::check (
   # Some constants that don't deserve to be parameters
   $host_name           = $nagios::client::host_name
   $server              = $nagios::client::server
+
+  # Any additional packages needed by this particular
+  # nrpe check, installed on the nrpe node.
+  $final_packages_ensure = $packages_ensure ? {
+    undef   => $ensure,
+    default => $packages_ensure,
+  }
+  ensure_packages($packages, { 'ensure' => $final_packages_ensure })
 
   # Review parameters to see if there is a better default (from nagios::client)
   $final_check_period = $check_period ? {
